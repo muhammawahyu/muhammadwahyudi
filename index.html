@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Muhammad Wahyudi — Developer</title>
+  <meta name="description" content="Software development, workflow automation, AI integration, and WhatsApp Cloud API testing." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:    #0A0F1E;
+      --card:    #111827;
+      --border:  #1E2D45;
+      --teal:    #00D4AA;
+      --teal-dim:#00a884;
+      --slate:   #8B96A5;
+      --off-white:#F0EDE8;
+      --white:   #FFFFFF;
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-mono:    'Space Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--navy);
+      color: var(--off-white);
+      font-family: var(--font-display);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 2.5rem;
+      background: rgba(10, 15, 30, 0.82);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--font-mono);
+      font-size: 0.95rem;
+      color: var(--teal);
+      letter-spacing: 0.04em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.88rem;
+      color: var(--slate);
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--teal); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 8rem 2.5rem 4rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--teal);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 28px;
+      height: 1px;
+      background: var(--teal);
+    }
+
+    .hero-name {
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--white);
+      margin-bottom: 0.3rem;
+    }
+
+    .hero-name span { color: var(--teal); }
+
+    /* Terminal block */
+    .terminal {
+      margin-top: 2.4rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      width: 100%;
+      max-width: 580px;
+    }
+
+    .terminal-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0.7rem 1rem;
+      background: #0d1525;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .dot {
+      width: 11px; height: 11px;
+      border-radius: 50%;
+    }
+    .dot-red    { background: #FF5F56; }
+    .dot-yellow { background: #FFBD2E; }
+    .dot-green  { background: #27C93F; }
+
+    .terminal-body {
+      padding: 1.2rem 1.4rem;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      line-height: 2;
+      color: var(--slate);
+    }
+
+    .t-prompt { color: var(--teal); }
+    .t-key    { color: #7eb8f7; }
+    .t-val    { color: #c3e88d; }
+    .t-str    { color: #f78c6c; }
+
+    .cursor {
+      display: inline-block;
+      width: 9px; height: 1.1em;
+      background: var(--teal);
+      vertical-align: text-bottom;
+      animation: blink 1.1s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
+    }
+
+    .hero-cta {
+      margin-top: 2.5rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary, .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.72rem 1.6rem;
+      border-radius: 6px;
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.22s;
+      letter-spacing: 0.02em;
+    }
+
+    .btn-primary {
+      background: var(--teal);
+      color: var(--navy);
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background: #00ffe4;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,212,170,0.25);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--off-white);
+      border: 1px solid var(--border);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--teal);
+      color: var(--teal);
+    }
+
+    /* ── DIVIDER ── */
+    .section-divider {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 2.5rem;
+    }
+
+    .divider-line {
+      border: none;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── SERVICES ── */
+    #services {
+      padding: 6rem 2.5rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--teal);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      margin-bottom: 3rem;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .service-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.8rem;
+      transition: border-color 0.2s, transform 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--teal), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .service-card:hover {
+      border-color: var(--teal-dim);
+      transform: translateY(-3px);
+    }
+
+    .service-card:hover::before { opacity: 1; }
+
+    .service-icon {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .service-name {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+
+    .service-desc {
+      font-size: 0.875rem;
+      color: var(--slate);
+      line-height: 1.65;
+    }
+
+    /* ── STACK ── */
+    #stack {
+      padding: 0 2.5rem 6rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .tags-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 1.8rem;
+    }
+
+    .tag {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--teal);
+      background: rgba(0, 212, 170, 0.08);
+      border: 1px solid rgba(0, 212, 170, 0.2);
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      padding: 6rem 2.5rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .contact-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 3rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.8rem;
+    }
+
+    .contact-tagline {
+      font-size: clamp(1.4rem, 3.5vw, 2rem);
+      font-weight: 600;
+      color: var(--white);
+      line-height: 1.3;
+      letter-spacing: -0.02em;
+    }
+
+    .contact-tagline span { color: var(--teal); }
+
+    .contact-email-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .contact-email-icon {
+      width: 40px; height: 40px;
+      border-radius: 8px;
+      background: rgba(0,212,170,0.1);
+      border: 1px solid rgba(0,212,170,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .contact-email-link {
+      font-family: var(--font-mono);
+      font-size: 0.92rem;
+      color: var(--teal);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      transition: color 0.2s;
+    }
+
+    .contact-email-link:hover { color: #00ffe4; text-decoration: underline; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.8rem 2.5rem;
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+
+    .footer-copy {
+      font-size: 0.8rem;
+      color: var(--slate);
+      font-family: var(--font-mono);
+    }
+
+    .footer-status {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.78rem;
+      color: var(--slate);
+    }
+
+    .status-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--teal);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.5; transform: scale(1.3); }
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      nav { padding: 1rem 1.4rem; }
+      .nav-links { gap: 1.2rem; }
+      #hero { padding: 7rem 1.4rem 3rem; }
+      #services, #stack, #contact { padding-left: 1.4rem; padding-right: 1.4rem; }
+      .contact-card { padding: 2rem 1.4rem; }
+      footer { padding: 1.4rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cursor, .status-dot { animation: none; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <span class="nav-logo">mw.dev</span>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#stack">Stack</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <p class="hero-eyebrow">Available for projects</p>
+    <h1 class="hero-name">Muhammad<br>Wahyudi<span>.</span></h1>
+
+    <div class="terminal reveal">
+      <div class="terminal-bar">
+        <span class="dot dot-red"></span>
+        <span class="dot dot-yellow"></span>
+        <span class="dot dot-green"></span>
+      </div>
+      <div class="terminal-body">
+        <div><span class="t-prompt">~$</span> cat profile.json</div>
+        <div>{</div>
+        <div>&nbsp;&nbsp;<span class="t-key">"role"</span>: <span class="t-str">"Full-Stack Developer"</span>,</div>
+        <div>&nbsp;&nbsp;<span class="t-key">"focus"</span>: [<span class="t-str">"Software Dev"</span>, <span class="t-str">"Automation"</span>, <span class="t-str">"AI"</span>],</div>
+        <div>&nbsp;&nbsp;<span class="t-key">"status"</span>: <span class="t-val">true</span> <span style="color:var(--slate)">// open to work</span></div>
+        <div>}</div>
+        <div><span class="t-prompt">~$</span> <span class="cursor"></span></div>
+      </div>
+    </div>
+
+    <div class="hero-cta reveal">
+      <a href="#contact" class="btn-primary">Hubungi Saya ↗</a>
+      <a href="#services" class="btn-ghost">Lihat Layanan</a>
+    </div>
+  </section>
+
+  <div class="section-divider"><hr class="divider-line" /></div>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <p class="section-label">What I Do</p>
+    <h2 class="section-title">Layanan</h2>
+
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <span class="service-icon">⚙️</span>
+        <p class="service-name">Software Development</p>
+        <p class="service-desc">Membangun aplikasi web dan backend yang handal, scalable, dan mudah dipelihara sesuai kebutuhan bisnis Anda.</p>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-icon">🔄</span>
+        <p class="service-name">Workflow Automation</p>
+        <p class="service-desc">Mengotomasi proses repetitif dan menghubungkan berbagai tools agar tim Anda fokus pada pekerjaan yang lebih bernilai.</p>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-icon">🤖</span>
+        <p class="service-name">AI Integration</p>
+        <p class="service-desc">Mengintegrasikan kemampuan AI ke dalam produk atau alur kerja Anda — dari chatbot hingga analisis dokumen otomatis.</p>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-icon">💬</span>
+        <p class="service-name">WhatsApp Cloud API</p>
+        <p class="service-desc">Setup, testing, dan integrasi WhatsApp Cloud API untuk komunikasi bisnis, notifikasi otomatis, dan customer service.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"><hr class="divider-line" /></div>
+
+  <!-- STACK -->
+  <section id="stack">
+    <p class="section-label" style="margin-top:3rem">Tech Stack</p>
+    <h2 class="section-title">Tools & Teknologi</h2>
+    <div class="tags-list reveal">
+      <span class="tag">Python</span>
+      <span class="tag">Node.js</span>
+      <span class="tag">JavaScript</span>
+      <span class="tag">REST API</span>
+      <span class="tag">WhatsApp Cloud API</span>
+      <span class="tag">OpenAI API</span>
+      <span class="tag">n8n</span>
+      <span class="tag">Zapier</span>
+      <span class="tag">Make (Integromat)</span>
+      <span class="tag">PostgreSQL</span>
+      <span class="tag">MongoDB</span>
+      <span class="tag">Docker</span>
+      <span class="tag">Git</span>
+      <span class="tag">GitHub Pages</span>
+      <span class="tag">Linux</span>
+    </div>
+  </section>
+
+  <div class="section-divider"><hr class="divider-line" /></div>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <p class="section-label">Get In Touch</p>
+    <h2 class="section-title">Kontak</h2>
+
+    <div class="contact-card reveal">
+      <p class="contact-tagline">
+        Punya proyek yang ingin <span>diwujudkan</span>?<br>
+        Mari ngobrol.
+      </p>
+      <p style="font-size:0.9rem;color:var(--slate);max-width:460px;">
+        Terbuka untuk proyek freelance, kolaborasi, maupun diskusi teknis. Kirim email dan saya akan balas secepatnya.
+      </p>
+      <div class="contact-email-wrap">
+        <div class="contact-email-icon">✉️</div>
+        <a href="mailto:jasakaryasemestah@gmail.com" class="contact-email-link">
+          jasakaryasemestah@gmail.com
+        </a>
+      </div>
+      <a href="mailto:jasakaryasemestah@gmail.com" class="btn-primary">Kirim Email ↗</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-copy">© 2025 Muhamma Wahyu Developer</span>
+    <div class="footer-status">
+      <span class="status-dot"></span>
+      <span>Open to work</span>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); }
+      }),
+      { threshold: 0.12 }
+    );
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
